@@ -15,12 +15,14 @@ function Get-Five {
 	}
 
 	$TraceVerboseTimer.Stop()
-	Write-Host ('It took {0} tries and {1}ms to reach 42069!' -f $Counter, $TraceVerboseTimer.ElapsedMilliseconds)
+	Write-Host `n('It took {0} tries and {1} seconds to reach 42069!' -f $Counter, ($TraceVerboseTimer.ElapsedMilliseconds / 1000))
+
 }
 Get-Five
 
-while ((Read-Host 'Do you want to try again? [Y/N?]') -eq 'y') {
+while ((Read-Host ' Do you want to try again? [Y/N?]') -eq 'y') {
 	Get-Five
 }
 
-Write-Host (@('Au Revoir!', 'Adiós!', 'Arrivederci!', 'Ciao!', 'Sayonara!', 'Bon Voyage!', 'Vale!', 'Shalom!', 'Totsiens!') | Get-Random)
+Write-Host `n(@('Au Revoir!', 'Adiós!', 'Arrivederci!', 'Ciao!', 'Sayonara!', 'Bon Voyage!', 'Vale!', 'Shalom!', 'Totsiens!') | Get-Random)
+
