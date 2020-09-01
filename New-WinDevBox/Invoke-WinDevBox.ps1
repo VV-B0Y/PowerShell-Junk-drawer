@@ -94,7 +94,15 @@ do {
 
 # Import My Windows PowerShell Profile
 $WpProfile = (Invoke-WebRequest 'hhttps://raw.githubusercontent.com/VV-B0Y/PowerShell-Junk-drawer/master/New-Win10Box/Config/profile.ps1' -UseBasicParsing).Content
-Set-Content -Value $WpProfile -Path "$env:USERPROFILE/Documents/WindowsPowershell/Microsoft.PowerShell_profile.ps1"
+
+foreach ($proPath in @(
+		# "$($env:userprofile)\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+		# "$($env:userprofile)\Documents\PowerShell\Microsoft.VSCode_profile.ps1"
+		"$($env:userprofile)\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
+		"$($env:userprofile)\Documents\WindowsPowerShell\Microsoft.VSCode_profile.ps1"
+	)) {
+	Set-Content -Value $WpProfile -Path $proPath
+}
 
 # Import My Windows Terminal Settings
 $WtSettingPath = (Get-ChildItem -Directory $env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_*\LocalState\).fullname
