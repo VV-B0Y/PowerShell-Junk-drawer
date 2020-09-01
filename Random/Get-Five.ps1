@@ -1,5 +1,5 @@
 ﻿<#
-Author: VV-B0Y
+Author: Jerome (VV-B0Y)
 Name: Get-Five
 Description: Inspired by a post i saw in r/python: https://www.reddit.com/r/Python/comments/hvq628/randomly_generate_69420_generate_random_5digit/
 ¯\_(ツ)_/¯: Generate a random five digit number until 42069 is generated.
