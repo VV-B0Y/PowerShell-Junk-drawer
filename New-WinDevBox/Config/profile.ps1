@@ -52,7 +52,7 @@ Set-Location '.\'
 # New-PromptText "I${heart}PS" -ForegroundColor Black -BackgroundColor White -ErrorForegroundColor White -ErrorBackgroundColor DarkRed #>
 # Set-PowerLinePrompt -SetCurrentDirectory -FullColor -Newline -Timestamp -Colors "#fe4450", "#ff7edb"
 
-#Stop Teams status from showing idle
+# Stop Teams status from showing me as idle
 Function Move-Mouse {
 	$WShell = New-Object -com "Wscript.Shell"
 	while ($true) {
@@ -70,7 +70,7 @@ function Connect-Teams {
 	Connect-MicrosoftTeams -Credential $UserCredential
 }
 
-# Get Weather
+# Show weather in console
 function Show-Weather {
 	param (
 		$city
