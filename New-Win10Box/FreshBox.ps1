@@ -9,7 +9,7 @@ param (
 Set-ExecutionPolicy RemoteSigned -Scope Process
 Set-ExecutionPolicy Unrestricted -Scope LocalMachine
 
-# Disable BitLocker
+# Disable BitLocker encryption
 manage-bde -off C:
 
 if ($UACNoConsent) {
@@ -46,7 +46,7 @@ ForEach ($Module in $ModList) {
 	Install-Module $Module -Force -Confirm:$false
 }
 
-
+# List of packages to install via Chocolately package manager
 $PackageList = @(
 	'discord'
 	'everything'
@@ -64,7 +64,6 @@ $PackageList = @(
 	'vscode-csharpextensions'
 	'vscode-powershell'
 )
-
 choco install $PackageList -fy
 
 # Alias "pog" stands for "pretty log"
@@ -93,11 +92,11 @@ do {
 	}
 } until (($WslVersion).split(':')[0] -ne 'Error')
 
-# Import My Windows Posh Profile
-$WpProfile = (Invoke-WebRequest 'https://gist.githubusercontent.com/VV-B0Y/962f6baed1f09b4eedc06ceb2baa0535/raw/bf16bcacb38bb9083ce6afb337c6263837b880e6/Microsoft.PowerShell_profile.ps1' -UseBasicParsing).Content
+# Import My Windows PowerShell Profile
+$WpProfile = (Invoke-WebRequest 'hhttps://raw.githubusercontent.com/VV-B0Y/PowerShell-Junk-drawer/master/New-Win10Box/Config/profile.ps1' -UseBasicParsing).Content
 Set-Content -Value $WpProfile -Path "$env:USERPROFILE/Documents/WindowsPowershell/Microsoft.PowerShell_profile.ps1"
 
 # Import My Windows Terminal Settings
 $WtSettingPath = (Get-ChildItem -Directory $env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_*\LocalState\).fullname
-$wtProfileContent = (Invoke-WebRequest 'https://gist.githubusercontent.com/VV-B0Y/c327d1c9a585b200ca3fe159999ea1f9/raw/f8c2080fc3aa77a448f159988c6c498f6881c20b/settings.json' -UseBasicParsing).Content
+$wtProfileContent = (Invoke-WebRequest 'https://raw.githubusercontent.com/VV-B0Y/PowerShell-Junk-drawer/master/New-Win10Box/Config/settings.json' -UseBasicParsing).Content
 Set-Content -Value $wtProfileContent -Path ('{0}\{1}' -f $WtSettingPath, 'settings.json')
