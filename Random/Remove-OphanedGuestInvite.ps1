@@ -1,6 +1,9 @@
-﻿Using Namespace Microsoft.VisualBasic
+﻿# VB assembly is required for `$Days = [DateAndTime]::DateDiff([DateInterval]::Day, $beg, $end)`
+Using Namespace Microsoft.VisualBasic
 Add-Type  -AssemblyName  Microsoft.VisualBasic
 function OrphanedGuests {
+	# I'll clean this up and add params later
+
 	$Creds = Get-ChildItem 'C:\Temp\Cred' | Out-GridView  -OutputMode Multiple
 
 	foreach ($Cred in $Creds) {
@@ -25,7 +28,7 @@ function OrphanedGuests {
 					Status         = $Orphan.UserState
 					InvitationDate = ($Orphan.UserStateChangedOn).Split('T')[0]
 					DaysOrphaned   = $Days
-				}  #| Export-Csv "C:\temp\$Tenant-orphans.csv" -Append -NoTypeInformation
+				}  | Export-Csv "C:\temp\$Tenant-orphans.csv" -Append -NoTypeInformation
 
 				$Check = Read-Host 'Press "Y" then ENTER to confirm the removal of ' $Orphan.DisplayName "orphaned for $days days"
 
