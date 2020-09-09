@@ -1,7 +1,4 @@
-﻿# VB assembly is required for `$Days = [DateAndTime]::DateDiff([DateInterval]::Day, $beg, $end)`
-Using Namespace Microsoft.VisualBasic
-Add-Type  -AssemblyName  Microsoft.VisualBasic
-function OrphanedGuests {
+﻿function OrphanedGuests {
 	# I'll clean this up and add params later
 
 	$Creds = Get-ChildItem 'C:\Temp\Cred' | Out-GridView  -OutputMode Multiple
@@ -14,13 +11,14 @@ function OrphanedGuests {
 
 		$OrphanedInvite = Get-AzureADUser -All $true | Where-Object UserState -EQ 'PendingAcceptance'
 
+
 		foreach ($Orphan in $OrphanedInvite) {
 
-			$beg = $Orphan.UserStateChangedOn
-			$end = Get-Date
-			$Days = [DateAndTime]::DateDiff([DateInterval]::Day, $beg, $end)
+			$StartDate = ($Orphan | Select-Object * -ExpandProperty ExtensionProperty).createdDateTime
+			$EndDate = Get-Date
+			$Days = (New-TimeSpan –Start $StartDate –End $EndDate).Days
 
-			if ($Days -lt 60) {
+			if ($Days -gt 60) {
 				[PSCustomObject]@{
 					Name           = $Orphan.DisplayName
 					Mail           = $Orphan.Mail
