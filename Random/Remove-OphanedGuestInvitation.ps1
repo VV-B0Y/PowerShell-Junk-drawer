@@ -1,6 +1,8 @@
 ﻿function OrphanedGuests {
 	# I'll clean this up and add params later
 
+
+	# This will run in multiple tenants if you store all encrypted credentials in the same dir. ** run: Get-Credential | Export-Clixml 'C:\Temp\Cred\Cred-Name.xml'
 	$Creds = Get-ChildItem 'C:\Temp\Cred' | Out-GridView  -OutputMode Multiple
 
 	foreach ($Cred in $Creds) {
@@ -41,4 +43,3 @@
 		}
 	}
 }
-OrphanedGuests
