@@ -1,7 +1,5 @@
-﻿function OrphanedGuests {
+﻿function Remove-ADorphanedGuests {
 	# I'll clean this up and add params later
-
-
 	# This will run in multiple tenants if you store all encrypted credentials in the same dir. ** run: Get-Credential | Export-Clixml 'C:\Temp\Cred\Cred-Name.xml'
 	$Creds = Get-ChildItem 'C:\Temp\Cred' | Out-GridView  -OutputMode Multiple
 
@@ -12,7 +10,6 @@
 		$Tenant = ($AAD.TenantDomain).Split('.')[0]
 
 		$OrphanedInvite = Get-AzureADUser -All $true | Where-Object UserState -EQ 'PendingAcceptance'
-
 
 		foreach ($Orphan in $OrphanedInvite) {
 
@@ -28,7 +25,7 @@
 					Status         = $Orphan.UserState
 					InvitationDate = ($Orphan.UserStateChangedOn).Split('T')[0]
 					DaysOrphaned   = $Days
-				}  | Export-Csv "C:\temp\$Tenant-orphans.csv" -Append -NoTypeInformation
+				} | Export-Csv "C:\temp\$Tenant-orphans.csv" -Append -NoTypeInformation
 
 				$Check = Read-Host 'Press "Y" then ENTER to confirm the removal of ' $Orphan.DisplayName "orphaned for $days days"
 
