@@ -1,11 +1,13 @@
 ﻿# Simple function to gather domain info  *Inspired by @itchallenges on IG
 # Author: Jerome
-# Example: Get-DomainInfo -Domain 'google.com'
+# Example: Get-DomainLocation -Domain 'google.com'
+
 function Get-DomainInfo {
 	param(
+		[Parameter(Mandatory = $true)]
 		[String]$Domain
 	)
-	$IP = (Resolve-DnsName $Domain).IPAddress
-	$URI = 'http://ip-api.com/json/{0}?fields=66846719' -f $IP
+	$URI = 'http://ip-api.com/json/{0}?fields=66846719' -f $Domain
 	Invoke-RestMethod $URI
+
 }
